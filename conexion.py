@@ -88,3 +88,22 @@ def get_peliculas():
         }
         peliculas.append(pelicula)
     return peliculas
+
+def get_pelicula(id):
+    query = "SELECT * FROM pelicula WHERE id = %s"
+    cursor.execute(query,(id,))
+    pelicula = {}
+    row = cursor.fetchone()
+    if row :
+        pelicula['id'] = row[0]
+        pelicula['titulo'] = row[1]
+        pelicula['imagen'] = row[2]
+        pelicula['fecha_visto'] = row[3]
+        pelicula['director'] = row[4]
+        pelicula['ano'] = row[5]
+        pelicula['valoracion'] = row[6]
+        pelicula['favorito'] = row[7]
+        pelicula['resena'] = row[8]
+        pelicula['compartido'] = row[9]
+
+    return pelicula
