@@ -52,3 +52,39 @@ def iniciar_sesion(correo, contra):
         return id[0], True
     else:
         return None, False
+
+def insertar_peliculas(pelicula):
+    titulo = pelicula['titulo']
+    fecha_visto = pelicula['fecha_visto']
+    imagen = pelicula['imagen']
+    director = pelicula['director']
+    ano = pelicula['ano']
+    usuarioId = pelicula['usuarioId']
+
+    insertar = "INSERT INTO pelicula \
+        (titulo,fecha_visto,imagen,director,ano,usuarioID) \
+        VALUES (%s, %s,%s,%s, %s,%s)"
+    cursor.execute(insertar,
+    (titulo,fecha_visto,imagen,director,ano,usuarioId))
+    bd.commit()
+
+    if cursor.rowcount:
+        return True
+    else:
+        return False
+
+def get_peliculas():
+    query = "SELECT id, titulo, imagen, fecha_visto, director, ano FROM pelicula"
+    cursor.execute(query)
+    peliculas = []
+    for row in cursor.fetchall():
+        pelicula={
+            'id':row[0],
+            'titulo':row[1],
+            'imagen':row[2],
+            'fecha_visto':row[3],
+            'director':row[4],
+            'ano':row[5]
+        }
+        peliculas.append(pelicula)
+    return peliculas
